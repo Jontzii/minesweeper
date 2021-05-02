@@ -11,8 +11,9 @@ jobs:
   backend:
     name: Backend CI
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./backend/
+    defaults:
+      run:
+        working-directory: backend
 
     steps:
       - uses: actions/checkout@v2
@@ -34,8 +35,9 @@ jobs:
   frontend:
     name: Backend CI
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./frontend/
+    defaults:
+      run:
+        working-directory: frontend
 
     steps:
       - uses: actions/checkout@v2

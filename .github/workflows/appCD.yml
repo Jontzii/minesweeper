@@ -11,8 +11,9 @@ jobs:
   backend:
     name: Backend
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./backend/
+    defaults:
+      run:
+        working-directory: backend
 
     steps:
       - uses: actions/checkout@v2
@@ -40,16 +41,16 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ${{env.working-directory}}
-          file: ${{env.working-directory}}/Dockerfile
+          file: ./Dockerfile
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/minesweeper:backend
 
   frontend:
     name: Frontend
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./frontend/
+    defaults:
+      run:
+        working-directory: frontend
 
     steps:
       - uses: actions/checkout@v2
@@ -77,8 +78,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ${{env.working-directory}}
-          file: ${{env.working-directory}}/Dockerfile
+          file: ./Dockerfile
           platforms: linux/amd64
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/minesweeper:frontend
           
