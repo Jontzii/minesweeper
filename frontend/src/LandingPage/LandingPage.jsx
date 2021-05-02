@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 'calc(10px + 2vmin)',
   },
   paper: {
-    width: '25vw',
-    height: '25vw',
+    width: 'minmax(300px,500px)',
+    height: '500px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -53,29 +53,17 @@ export default function LandingPage() {
           <img src={Logo} alt="Logo" />
         </div>
         <div>
-          <Button
-            variant="contained"
-            className={classes.button}
-            size="large"
-          >
+          <Button variant="contained" className={classes.button} size="large">
             Play as a guest
           </Button>
         </div>
         <div>
-          <Button
-            variant="contained"
-            className={classes.button}
-            size="large"
-          >
+          <Button variant="contained" className={classes.button} size="large">
             Log in
           </Button>
         </div>
         <div>
-          <Button
-            variant="contained"
-            className={classes.button}
-            size="large"
-          >
+          <Button variant="contained" className={classes.button} size="large">
             Register
           </Button>
         </div>
