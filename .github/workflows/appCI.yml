@@ -33,7 +33,7 @@ jobs:
         run: npm test
           
   frontend:
-    name: Backend CI
+    name: Frontend CI
     runs-on: ubuntu-latest
     defaults:
       run:
