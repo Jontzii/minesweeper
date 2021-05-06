@@ -30,17 +30,32 @@ export default function LandingPage() {
         <img src={Logo} alt="Logo" />
       </div>
       <div>
-        <Button variant="contained" className={classes.button} size="large" onClick={() => history.push('/play')}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          size="large"
+          onClick={() => history.push('/play')}
+        >
           Play as a guest
         </Button>
       </div>
       <div>
-        <Button variant="contained" className={classes.button} size="large" onClick={() => history.push('/login')}>
-          Log in
+        <Button
+          variant="contained"
+          className={classes.button}
+          size="large"
+          onClick={() => history.push('/login')}
+        >
+          Login
         </Button>
       </div>
       <div>
-        <Button variant="contained" className={classes.button} size="large" onClick={() => history.push('/register')}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          size="large"
+          onClick={() => history.push('/register')}
+        >
           Register
         </Button>
       </div>

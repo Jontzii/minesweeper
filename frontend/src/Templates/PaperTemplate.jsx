@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { CSSTransition } from 'react-transition-group';
@@ -33,22 +36,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PaperTemplate(Page) {
+const showToast = (msg, success) => {
+  if (success) {
+    toast.success(msg, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+    });
+  } else {
+    toast.error(msg, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+    });
+  }
+};
+
+export default function PaperTemplate(Page, ...props) {
   const classes = useStyles();
   const history = useHistory();
 
   return (
-    <div className={classes.root}>
-      <Paper elevation={20} className={classes.paper}>
-        <CSSTransition
-          in
-          timeout={400}
-          key={history.key}
-          classNames="SlideIn"
-        >
-          <Page />
-        </CSSTransition>
-      </Paper>
+    <div>
+      <ToastContainer />
+      <div className={classes.root}>
+        <Paper elevation={20} className={classes.paper}>
+          <CSSTransition
+            in
+            timeout={400}
+            key={history.key}
+            classNames="SlideIn"
+          >
+            <Page showToast={showToast} args={props} />
+          </CSSTransition>
+        </Paper>
+      </div>
     </div>
   );
 }

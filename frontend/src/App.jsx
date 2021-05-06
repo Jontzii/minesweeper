@@ -5,6 +5,7 @@ import {
   Route,
   useLocation,
 } from 'react-router-dom';
+
 import { TransitionGroup } from 'react-transition-group';
 
 /* Template */
@@ -16,7 +17,12 @@ import LandingPage from './LandingPage/LandingPage';
 import LoginPage from './LandingPage/LoginPage/LoginPage';
 import RegisterPage from './LandingPage/RegisterPage/RegisterPage';
 import GamePage from './GamePage/GamePage';
+
+/* Errors */
 import Error404 from './ErrorPage/Error404';
+
+/* Variables */
+const URL = 'https://api.jontzi.com/minesweeper';
 
 export default function App() {
   const location = useLocation();
@@ -25,8 +31,8 @@ export default function App() {
     <TransitionGroup>
       <Switch location={location}>
         <Route path="/" exact component={() => PaperShell(LandingPage)} />
-        <Route path="/register" exact component={() => PaperShell(RegisterPage)} />
-        <Route path="/login" exact component={() => PaperShell(LoginPage)} />
+        <Route path="/register" exact component={() => PaperShell(RegisterPage, URL)} />
+        <Route path="/login" exact component={() => PaperShell(LoginPage, URL)} />
         <Route path="/play" exact component={GamePage} />
         <Route path="*" component={() => ErrorShell(Error404)} />
       </Switch>

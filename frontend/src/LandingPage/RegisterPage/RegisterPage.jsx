@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable react/forbid-prop-types */
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -22,13 +24,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const handleRegister = () => {
-  // ASD
+const handleRegister = async (url, name, email, password, ...args) => {
+  const requestOptions = {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, email, password }),
+  };
+
+  fetch(`${url}/auth/register`, requestOptions)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      const showToast = args[0];
+      showToast('Registration succeeded🚀', false);
+    })
+    .catch(() => {
+      const showToast = args[0];
+      showToast('Registration failed😫', true);
+    });
 };
 
-export default function LandingPage() {
+export default function LandingPage(props) {
   const classes = useStyles();
   const history = useHistory();
+  const { showToast, args } = props;
+
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   return (
     <div>
@@ -40,6 +67,7 @@ export default function LandingPage() {
           variant="outlined"
           label="Name"
           type="text"
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div className={classes.textfield}>
@@ -47,6 +75,7 @@ export default function LandingPage() {
           variant="outlined"
           label="Email"
           type="email"
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className={classes.textfield}>
@@ -54,6 +83,7 @@ export default function LandingPage() {
           variant="outlined"
           label="Password"
           type="password"
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <div>
@@ -70,7 +100,13 @@ export default function LandingPage() {
           variant="contained"
           className={classes.button}
           size="large"
-          onClick={handleRegister}
+          onClick={() => handleRegister(
+            args[0],
+            name,
+            email,
+            password,
+            showToast,
+          )}
         >
           Register
         </Button>
@@ -78,3 +114,12 @@ export default function LandingPage() {
     </div>
   );
 }
+
+LandingPage.propTypes = {
+  showToast: PropTypes.func.isRequired,
+  args: PropTypes.array,
+};
+
+LandingPage.defaultProps = {
+  args: [],
+};
